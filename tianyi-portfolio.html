@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tianyi — Product Marketer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --parchment: #F5F0E8;
+      --parchment-dark: #EDE5D8;
+      --ink: #221E1A;
+      --ink-soft: #4A4440;
+      --amber: #8C6239;
+      --amber-light: #B8884E;
+      --sage: #4A5241;
+      --sage-light: #7A8A70;
+      --line: #D5CCB8;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Jost', system-ui, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 4rem;
+      background: rgba(245, 240, 232, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s ease;
+    }
+    nav.scrolled { border-color: var(--line); }
+
+    .nav-name {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--amber); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      padding: 0 4rem 6rem;
+      padding-top: 8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-botanical {
+      position: absolute;
+      top: -2rem;
+      right: -4rem;
+      width: 55%;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      grid-column: 1;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background: var(--amber);
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--amber);
+    }
+
+    .hero-tagline {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink-soft);
+      max-width: 28rem;
+      line-height: 1.6;
+      margin-bottom: 3rem;
+      border-left: 2px solid var(--line);
+      padding-left: 1.5rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 2.5rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sage-light);
+    }
+
+    .hero-scroll-hint {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--line);
+      margin-top: 6rem;
+    }
+    .hero-scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 3rem;
+      background: var(--line);
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 7rem 4rem; }
+
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+      max-width: 4rem;
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+
+    /* ── THINKING / PHILOSOPHY ── */
+    .thinking {
+      background: var(--ink);
+      color: var(--parchment);
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .thinking .section-label { color: var(--amber-light); }
+    .thinking .section-label::after { background: #4A4440; }
+
+    .thinking h2 { color: var(--parchment); }
+
+    .thinking-left { position: sticky; top: 8rem; }
+
+    .thinking-quote {
+      font-family: var(--serif);
+      font-size: 1.65rem;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.45;
+      color: var(--parchment);
+      margin-top: 2.5rem;
+      border-left: 2px solid var(--amber);
+      padding-left: 1.5rem;
+    }
+    .thinking-quote cite {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-style: normal;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber-light);
+      margin-top: 1rem;
+    }
+
+    .thinking-right p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #C8BFB0;
+      margin-bottom: 1.8rem;
+    }
+    .thinking-right p strong {
+      color: var(--parchment);
+      font-weight: 400;
+    }
+    .thinking-right p:last-child { margin-bottom: 0; }
+
+    /* ── EXPERIENCE ── */
+    .experience {
+      background: var(--parchment);
+    }
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 0;
+      margin-top: 4rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .exp-item {
+      display: contents;
+    }
+
+    .exp-left, .exp-right {
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .exp-left { padding-right: 3rem; }
+    .exp-right { padding-left: 3rem; border-left: 1px solid var(--line); }
+
+    .exp-period {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sage-light);
+      margin-bottom: 0.5rem;
+    }
+
+    .exp-company {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+
+    .exp-brand {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+
+    .exp-title {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .exp-desc {
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      line-height: 1.75;
+      margin-bottom: 1.2rem;
+    }
+
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .exp-tag {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--sage);
+      border: 1px solid var(--line);
+      padding: 0.3rem 0.8rem;
+      border-radius: 0;
+    }
+
+    /* ── EDUCATION ── */
+    .education {
+      background: var(--parchment-dark);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .edu-card {
+      margin-top: 3rem;
+    }
+    .edu-item {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .edu-item:first-child { border-top: 1px solid var(--line); }
+    .edu-degree {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+    .edu-institution {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.3rem;
+    }
+    .edu-year {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--sage-light);
+    }
+    .edu-note {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      margin-top: 0.6rem;
+      line-height: 1.6;
+    }
+
+    .education-right {
+      padding-top: 4rem;
+    }
+    .languages {
+      margin-top: 3rem;
+    }
+    .lang-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .lang-item:first-child { border-top: 1px solid var(--line); }
+    .lang-name {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+    .lang-level {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+    }
+
+    /* ── APPROACH ── */
+    .approach {
+      background: var(--parchment);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .approach-item {
+      padding: 5rem 3.5rem;
+      border-right: 1px solid var(--line);
+    }
+    .approach-item:last-child { border-right: none; }
+
+    .approach-number {
+      font-family: var(--serif);
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: var(--line);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .approach-title {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .approach-desc {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.75;
+    }
+
+    /* ── CONTACT ── */
+    .contact {
+      background: var(--sage);
+      color: var(--parchment);
+      text-align: center;
+      padding: 8rem 4rem;
+    }
+
+    .contact .section-label {
+      justify-content: center;
+      color: var(--parchment-dark);
+    }
+    .contact .section-label::after { background: rgba(255,255,255,0.2); max-width: 2rem; }
+
+    .contact h2 {
+      color: var(--parchment);
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      margin: 1rem 0 2rem;
+    }
+
+    .contact p {
+      font-size: 1rem;
+      color: rgba(245,240,232,0.7);
+      max-width: 34rem;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
+
+    .contact-cta {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--parchment);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(245,240,232,0.4);
+      padding-bottom: 0.3rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-cta:hover { color: var(--amber-light); border-color: var(--amber-light); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      padding: 2.5rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-name {
+      font-family: var(--serif);
+      font-size: 0.95rem;
+      color: #6A6058;
+    }
+    .footer-note {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #4A4440;
+    }
+
+    /* ── BOTANICAL SVG ── */
+    .botanical-divider {
+      display: flex;
+      justify-content: center;
+      padding: 2rem 0;
+      opacity: 0.3;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(1.5rem);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.5rem 2rem; }
+      .nav-links { display: none; }
+      .hero, section { padding-left: 2rem; padding-right: 2rem; }
+      .hero { grid-template-columns: 1fr; }
+      .thinking, .education { grid-template-columns: 1fr; gap: 3rem; }
+      .thinking-left { position: static; }
+      .experience-grid { grid-template-columns: 1fr; }
+      .exp-right { border-left: none; padding-left: 0; }
+      .approach { grid-template-columns: 1fr; }
+      .approach-item { border-right: none; border-bottom: 1px solid var(--line); }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a class="nav-name" href="#">Tianyi</a>
+    <ul class="nav-links">
+      <li><a href="#thinking">Thinking</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Formation</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <!-- Botanical illustration -->
+    <svg class="hero-botanical" viewBox="0 0 500 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M250 680 C250 680 240 600 220 540 C200 480 160 440 140 380 C120 320 130 260 150 200 C170 140 200 90 220 50" stroke="#4A5241" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M220 380 C180 360 140 320 120 280 C100 240 110 190 130 160" stroke="#4A5241" stroke-width="1" stroke-linecap="round" fill="none"/>
+      <ellipse cx="125" cy="155" rx="35" ry="20" transform="rotate(-30 125 155)" stroke="#4A5241" stroke-width="1" fill="none"/>
+      <path d="M140 310 C120 290 100 260 95 230 C90 200 100 170 115 145" stroke="#4A5241" stroke-width="0.8" stroke-linecap="round" fill="none"/>
+      <ellipse cx="112" cy="140" rx="28" ry="16" transform="rotate(-40 112 140)" stroke="#4A5241" stroke-width="0.8" fill="none"/>
+      <path d="M220 280 C200 260 190 230 200 200 C210 170 240 155 270 140" stroke="#4A5241" stroke-width="1" stroke-linecap="round" fill="none"/>
+      <ellipse cx="275" cy="135" rx="32" ry="18" transform="rotate(20 275 135)" stroke="#4A5241" stroke-width="1" fill="none"/>
+      <path d="M200 200 C180 200 160 195 145 180 C130 165 125 145 130 125" stroke="#4A5241" stroke-width="0.7" stroke-linecap="round" fill="none"/>
+      <path d="M160 440 C170 400 180 360 200 330 C215 305 230 290 250 275" stroke="#4A5241" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+      <ellipse cx="255" cy="270" rx="26" ry="15" transform="rotate(15 255 270)" stroke="#4A5241" stroke-width="0.9" fill="none"/>
+      <!-- Small dotted flowers -->
+      <circle cx="170" cy="500" r="3" fill="#8C6239" opacity="0.5"/>
+      <circle cx="185" cy="490" r="2" fill="#8C6239" opacity="0.4"/>
+      <circle cx="160" cy="510" r="2.5" fill="#8C6239" opacity="0.3"/>
+      <circle cx="195" cy="505" r="2" fill="#4A5241" opacity="0.4"/>
+      <circle cx="145" cy="495" r="1.5" fill="#4A5241" opacity="0.3"/>
+    </svg>
+
+    <div class="hero-content fade-in">
+      <div class="hero-eyebrow">Product Marketer</div>
+      <h1>On<br/>meaning,<br/><em>sensation</em>,<br/>and form.</h1>
+      <p class="hero-tagline">
+        Trained in the philosophy of how social meaning is made.<br/>
+        Now makes meaning through luxury beauty.
+      </p>
+      <div class="hero-meta">
+        <span>Shanghai, China</span>
+        <span>L'Oréal Group</span>
+        <span>Luxury Beauty</span>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint fade-in">Scroll</div>
+  </section>
+
+  <!-- THINKING / PHILOSOPHY -->
+  <section class="thinking" id="thinking">
+    <div class="thinking-left fade-in">
+      <div class="section-label">Thinking</div>
+      <h2>A particular<br/>way of seeing.</h2>
+      <blockquote class="thinking-quote">
+        "Fragrance cannot be photographed. It lives in memory before it lives in the present. It identifies without announcing itself."
+        <cite>— On the phenomenology of scent</cite>
+      </blockquote>
+    </div>
+
+    <div class="thinking-right fade-in">
+      <p>
+        My academic formation is in <strong>how meaning moves</strong> — through language, through social institutions, through the objects we choose to keep near us. A degree in Communication from the University of Macau, followed by a Master's in Philosophy of Social Science at the <strong>London School of Economics</strong>, gave me a particular way of seeing: not just what people want, but why wanting takes the forms it does.
+      </p>
+      <p>
+        Luxury beauty, I came to understand, is not merely product. It is <strong>a system of meaning</strong> — a set of propositions about how one should move through the world, what one deserves, what sensation is worth attending to. The most compelling luxury brands do not sell objects; they offer a coherent philosophy of the good life, and invite the customer to affirm it.
+      </p>
+      <p>
+        Fragrance, more than any category I know, operates at this register. It cannot be photographed, only approximated. It lives in memory before it lives in the present. It connects the chemical to the cultural, the personal to the universal. A fragrance brief is, in its deepest structure, a philosophical argument — about identity, about provenance, about what endures.
+      </p>
+      <p>
+        I bring this framework to product marketing. <strong>It sharpens everything.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="approach">
+    <div class="approach-item fade-in">
+      <div class="approach-number">01</div>
+      <div class="approach-title">Conceptual Rigour</div>
+      <p class="approach-desc">Before a brief is written, the underlying question must be clearly stated. What is this product actually claiming? What world does it presuppose?</p>
+    </div>
+    <div class="approach-item fade-in">
+      <div class="approach-number">02</div>
+      <div class="approach-title">Commercial Precision</div>
+      <p class="approach-desc">Ideas without execution are indulgences. I work in the tension between depth of vision and the practical demands of campaign, calendar, and P&L.</p>
+    </div>
+    <div class="approach-item fade-in">
+      <div class="approach-number">03</div>
+      <div class="approach-title">Cultural Sensitivity</div>
+      <p class="approach-desc">Meaning is not universal. What luxury communicates in Shanghai differs from what it communicates in Melbourne. I hold both inside frame simultaneously.</p>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="experience" id="experience">
+    <div class="section-label fade-in">Experience</div>
+
+    <div class="experience-grid">
+
+      <!-- Role 1 -->
+      <div class="exp-left fade-in">
+        <div class="exp-period">2025 — Present</div>
+        <div class="exp-company">Helena Rubinstein</div>
+        <div class="exp-brand">L'Oréal Luxe · Shanghai</div>
+      </div>
+      <div class="exp-right fade-in">
+        <div class="exp-title">Junior Product Manager</div>
+        <p class="exp-desc">
+          Lead product marketing for iconic skincare franchises within one of China's most prestigious luxury beauty portfolios. Own campaign development for flagship commercial investments, from creative brief through to in-market execution and post-analysis.
+        </p>
+        <p class="exp-desc">
+          Operate at the intersection of brand equity and commercial ambition — responsible for translating brand philosophy into product stories that resonate with China's luxury beauty consumer.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">Campaign Strategy</span>
+          <span class="exp-tag">Product Launch</span>
+          <span class="exp-tag">Luxury Marketing</span>
+          <span class="exp-tag">China Market</span>
+        </div>
+      </div>
+
+      <!-- Role 2 -->
+      <div class="exp-left fade-in">
+        <div class="exp-period">2024 — 2025</div>
+        <div class="exp-company">Helena Rubinstein</div>
+        <div class="exp-brand">L'Oréal Luxe · Shanghai</div>
+      </div>
+      <div class="exp-right fade-in">
+        <div class="exp-title">Product Marketing Associate</div>
+        <p class="exp-desc">
+          Placed within the product marketing team following the Management Trainee programme. Built foundational expertise in luxury skincare marketing: franchise management, SKU strategy, retailer partnerships, and China's omnichannel beauty landscape.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">Skincare</span>
+          <span class="exp-tag">Omnichannel</span>
+          <span class="exp-tag">Franchise Management</span>
+        </div>
+      </div>
+
+      <!-- Role 3 -->
+      <div class="exp-left fade-in">
+        <div class="exp-period">2023 — 2024</div>
+        <div class="exp-company">L'Oréal China</div>
+        <div class="exp-brand">L'Oréal Group · Shanghai HQ</div>
+      </div>
+      <div class="exp-right fade-in">
+        <div class="exp-title">Management Trainee</div>
+        <p class="exp-desc">
+          Selected for L'Oréal China's Management Trainee programme — a competitive cross-functional immersion across marketing, commercial operations, and brand strategy. Gained systemic understanding of how one of the world's leading beauty groups operates across diverse brand portfolios and consumer segments.
+        </p>
+        <div class="exp-tags">
+          <span class="exp-tag">Cross-functional</span>
+          <span class="exp-tag">Brand Strategy</span>
+          <span class="exp-tag">Commercial Operations</span>
+          <span class="exp-tag">Leadership</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="education" id="education">
+    <div class="fade-in">
+      <div class="section-label">Formation</div>
+      <h2>Trained to ask<br/>harder questions.</h2>
+      <div class="edu-card">
+        <div class="edu-item">
+          <div class="edu-institution">London School of Economics & Political Science</div>
+          <div class="edu-degree">MSc Philosophy of Social Science</div>
+          <div class="edu-year">2021 – 2022 · London, United Kingdom</div>
+          <p class="edu-note">
+            Inquiry into the epistemological foundations of social knowledge — how social facts are constituted, interpreted, and contested. Developed a rigorous methodology for understanding systems of meaning.
+          </p>
+        </div>
+        <div class="edu-item">
+          <div class="edu-institution">University of Macau</div>
+          <div class="edu-degree">BA Communication</div>
+          <div class="edu-year">2017 – 2021 · Macau, China</div>
+          <p class="edu-note">
+            Study of how meaning is produced, circulated, and received through media, language, and cultural institutions. Foundational to understanding how brand narratives are constructed and consumed.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="education-right fade-in">
+      <div class="section-label">Languages</div>
+      <h2>Fluent across<br/>registers.</h2>
+      <div class="languages">
+        <div class="lang-item">
+          <span class="lang-name">Mandarin Chinese</span>
+          <span class="lang-level">Native</span>
+        </div>
+        <div class="lang-item">
+          <span class="lang-name">English</span>
+          <span class="lang-level">Professional Fluency</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 4rem; padding: 2.5rem; background: var(--parchment); border: 1px solid var(--line);">
+        <div class="section-label" style="margin-bottom: 1rem;">On fragrance</div>
+        <p style="font-family: var(--serif); font-size: 1.1rem; font-style: italic; color: var(--ink); line-height: 1.6;">
+          "Fragrance is the category where the philosophical and the commercial are most nakedly in conversation. To market a scent is to make an argument about time, identity, and what is worth remembering."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="section-label fade-in">Contact</div>
+    <h2 class="fade-in">Let us think<br/>together.</h2>
+    <p class="fade-in">Available for conversation on product philosophy, luxury fragrance marketing, and the intersection of academic rigour with commercial practice.</p>
+    <a href="mailto:" class="contact-cta fade-in">Get in touch</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">Tianyi — Product Marketer</div>
+    <div class="footer-note">Shanghai · 2026</div>
+  </footer>
+
+  <script>
+    // Scroll-based nav
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Stagger children within sections
+    document.querySelectorAll('section').forEach(section => {
+      const items = section.querySelectorAll('.fade-in');
+      items.forEach((item, i) => {
+        item.style.transitionDelay = `${i * 0.08}s`;
+      });
+    });
+  </script>
+</body>
+</html>
