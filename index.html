@@ -164,8 +164,11 @@
 
     /* EDUCATION */
     .education{background:var(--bg)}
-    .edu-i{padding:1.8rem 0;border-bottom:1px solid var(--line)}
+    .edu-i{padding:1.8rem 0;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:1.5rem}
     .edu-i:first-child{border-top:1px solid var(--line)}
+    .edu-logo{width:56px;height:56px;flex-shrink:0;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-top:.25rem;overflow:hidden}
+    .edu-logo img{width:40px;height:40px;object-fit:contain}
+    .edu-text{flex:1;min-width:0}
     .ei{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);margin-bottom:.3rem}
     .ed{font-family:var(--serif);font-size:1.18rem;font-weight:300;color:var(--ink);margin-bottom:.25rem}
     .ey{font-size:.67rem;letter-spacing:.08em;color:var(--slate);margin-bottom:.5rem}
@@ -275,6 +278,10 @@
       .prl{display:none}
       .pinner{grid-template-columns:1fr;gap:1.5rem}
       .pkpi{margin-top:0}
+
+      .edu-i{flex-direction:column;align-items:flex-start;gap:1rem}
+      .edu-logo{width:48px;height:48px}
+      .edu-logo img{width:34px;height:34px}
 
       .w-feat{grid-template-columns:1fr}
       .winner{padding-left:0}
@@ -544,16 +551,22 @@
     <h2>Trained to ask —<br/>and answer —<br/>harder questions.</h2>
     <div style="margin-top:2.5rem;max-width:36rem">
       <div class="edu-i">
-        <div class="ei">London School of Economics and Political Science</div>
-        <div class="ed">MSc Philosophy of Social Science</div>
-        <div class="ey">2021–2022 · London, United Kingdom</div>
-        <p class="en">Inquiry into how social facts are constituted, interpreted, and contested. Essays in structural injustice, feminist political philosophy, and the epistemology of scientific method.</p>
+        <div class="edu-logo"><img src="assets/lse_logo.svg" alt="LSE logo"/></div>
+        <div class="edu-text">
+          <div class="ei">London School of Economics and Political Science</div>
+          <div class="ed">MSc Philosophy of Social Science</div>
+          <div class="ey">2021–2022 · London, United Kingdom</div>
+          <p class="en">Inquiry into how social facts are constituted, interpreted, and contested. Essays in structural injustice, feminist political philosophy, and the epistemology of scientific method.</p>
+        </div>
       </div>
       <div class="edu-i">
-        <div class="ei">Macau University of Science and Technology</div>
-        <div class="ed">BA Journalism &amp; Communication, First Class Honours</div>
-        <div class="ey">2017–2021 · Macau, China &ensp;·&ensp; GPA 3.77/4.0 · Top 1% · 4-year Dean's List</div>
-        <p class="en">Study of how meaning is produced, circulated, and received through media, language, and cultural institutions. Vice President, Debate Team.</p>
+        <div class="edu-logo"><img src="assets/must_logo.svg" alt="MUST logo"/></div>
+        <div class="edu-text">
+          <div class="ei">Macau University of Science and Technology</div>
+          <div class="ed">BA Journalism &amp; Communication, First Class Honours</div>
+          <div class="ey">2017–2021 · Macau, China &ensp;·&ensp; GPA 3.77/4.0 · Top 1% · 4-year Dean's List</div>
+          <p class="en">Study of how meaning is produced, circulated, and received through media, language, and cultural institutions. Vice President, Debate Team.</p>
+        </div>
       </div>
     </div>
   </div>
