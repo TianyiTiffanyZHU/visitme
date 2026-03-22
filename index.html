@@ -45,7 +45,7 @@
       display:flex;justify-content:space-between;align-items:center;
       padding:1.3rem var(--h);
       background:rgba(243,241,238,.95);backdrop-filter:blur(10px);
-      border-bottom:1px solid transparent;transition:border-color .4s,background .4s
+      border-bottom:1px solid transparent;transition:border-color .4s
     }
     nav.scrolled{border-color:var(--line)}
     .nav-logo{font-family:var(--serif);font-size:1rem;font-weight:400;letter-spacing:.04em;color:var(--ink);text-decoration:none}
@@ -163,7 +163,7 @@
     .kv{font-family:var(--serif);font-size:1.08rem;font-weight:300;color:var(--bg);text-align:right;flex-shrink:0}
 
     /* EDUCATION */
-    .education{background:var(--bg);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+    .education{background:var(--bg)}
     .edu-i{padding:1.8rem 0;border-bottom:1px solid var(--line)}
     .edu-i:first-child{border-top:1px solid var(--line)}
     .ei{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);margin-bottom:.3rem}
@@ -178,6 +178,40 @@
     .ll{font-size:.61rem;letter-spacing:.14em;text-transform:uppercase;color:var(--navy)}
     .aside{margin-top:3rem;padding:1.7rem 2rem;background:var(--bg2);border:1px solid var(--line)}
     .aside p{font-size:.84rem;color:var(--ink2);line-height:1.75}
+
+    /* WRITING */
+    .writing{background:var(--bg2)}
+    .w-intro{font-size:.88rem;color:var(--ink2);line-height:1.88;max-width:38rem;margin-top:1.5rem}
+    .w-feat{margin-top:3rem;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem}
+    .wf{background:var(--bg);padding:2.5rem 2.2rem;border:1px solid var(--line);transition:border-color .3s}
+    .wf:hover{border-color:var(--navy)}
+    .wf-type{font-size:.57rem;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);margin-bottom:1.2rem}
+    .wf-t{font-family:var(--serif);font-size:1.22rem;font-weight:300;color:var(--ink);line-height:1.3;margin-bottom:.35rem}
+    .wf-sub{font-family:var(--serif);font-size:.86rem;font-weight:300;font-style:italic;color:var(--slate);margin-bottom:1.2rem}
+    .wf-d{font-size:.84rem;color:var(--ink2);line-height:1.82}
+    .wf-meta{font-size:.61rem;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--linel)}
+    .wf-link{display:inline-flex;align-items:center;gap:.5rem;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);text-decoration:none;margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--linel);transition:color .2s}
+    .wf-link:hover{color:var(--blue)}
+    .wf-link svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5;flex-shrink:0}
+    .wlist{margin-top:2.5rem;border-top:1px solid var(--line)}
+    .wrow{border-bottom:1px solid var(--line)}
+    .wbtn{
+      width:100%;background:none;border:none;cursor:pointer;
+      padding:1.5rem 0;
+      display:grid;grid-template-columns:4rem 1fr 1.6rem;
+      gap:1.5rem;align-items:center;text-align:left;transition:background .2s
+    }
+    .wbtn:hover,.wrow.open .wbtn{background:rgba(30,58,110,.04);padding-left:.6rem;margin-left:-.6rem;padding-right:.6rem;margin-right:-.6rem}
+    .wyr{font-size:.61rem;letter-spacing:.14em;text-transform:uppercase;color:var(--navy)}
+    .wnm{font-family:var(--serif);font-size:1.06rem;font-weight:400;color:var(--ink)}
+    .wic{width:1.5rem;height:1.5rem;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:1rem;line-height:1;color:var(--slate);transition:all .3s;flex-shrink:0}
+    .wrow.open .wic{border-color:var(--navy);color:var(--navy);transform:rotate(45deg)}
+    .wpanel{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.16,1,.3,1)}
+    .winner{padding:1rem 0 2rem;padding-left:5.5rem}
+    .winner p{font-size:.84rem;color:var(--ink2);line-height:1.82}
+
+    /* LANGUAGES */
+    .languages{background:var(--bg);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
 
     /* CONTACT */
     .contact{background:var(--dark);color:var(--bg);padding:7rem var(--h);text-align:center}
@@ -206,20 +240,19 @@
     @media(max-width:860px){
       .nav-links{display:none}
       .burger{display:flex}
-      nav:not(.scrolled){background:rgba(243,241,238,0);backdrop-filter:none}
 
       /* Hero: photo stacks above, content below */
       .hero{
         flex-direction:column;align-items:stretch;
         justify-content:flex-start;
-        padding-top:0;padding-bottom:3.5rem;
+        padding-top:4rem;padding-bottom:3.5rem;
         min-height:unset
       }
       .hero-bot{display:none}
       .hero-photo{
         position:relative;top:auto;right:auto;
         width:100%;height:52vw;min-height:200px;max-height:320px;
-        margin-top:3.8rem;margin-bottom:2.2rem;pointer-events:auto
+        margin-bottom:2.2rem;pointer-events:auto
       }
       .hero-photo::after{background:linear-gradient(0deg,var(--bg) 0%,transparent 42%)}
       .hero-c{max-width:100%}
@@ -243,14 +276,17 @@
       .pinner{grid-template-columns:1fr;gap:1.5rem}
       .pkpi{margin-top:0}
 
-      .education{grid-template-columns:1fr;gap:3rem}
-      .er{padding-top:0}
+      .w-feat{grid-template-columns:1fr}
+      .winner{padding-left:0}
+
+      .languages{grid-template-columns:1fr;gap:3rem}
+
       .cg{gap:1.5rem 2.5rem}
       footer{flex-direction:column;gap:.5rem;text-align:center}
     }
     @media(max-width:480px){
       .hero h1{font-size:2.6rem}
-      .hero-photo{height:58vw;margin-top:3.6rem}
+      .hero-photo{height:58vw}
       .pbtn{grid-template-columns:3.5rem 1fr 1.4rem}
       .pnm{font-size:1rem}
     }
@@ -265,6 +301,7 @@
     <li><a href="#career">Career</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#education">Formation</a></li>
+    <li><a href="#writing">Writing</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <button class="burger" id="burger" aria-label="Menu">
@@ -277,6 +314,7 @@
   <a href="#career"    onclick="cn()">Career</a>
   <a href="#projects"  onclick="cn()">Projects</a>
   <a href="#education" onclick="cn()">Formation</a>
+  <a href="#writing"   onclick="cn()">Writing</a>
   <a href="#contact"   onclick="cn()">Contact</a>
 </div>
 
@@ -504,7 +542,7 @@
   <div class="fi">
     <div class="lbl">Formation</div>
     <h2>Trained to ask —<br/>and answer —<br/>harder questions.</h2>
-    <div style="margin-top:2.5rem">
+    <div style="margin-top:2.5rem;max-width:36rem">
       <div class="edu-i">
         <div class="ei">London School of Economics and Political Science</div>
         <div class="ed">MSc Philosophy of Social Science</div>
@@ -519,14 +557,69 @@
       </div>
     </div>
   </div>
-  <div class="er fi">
+</section>
+
+<section class="writing" id="writing">
+  <div class="lbl fi">Academic Writing</div>
+  <h2 class="fi">Where the thinking<br/>was sharpened.</h2>
+  <p class="w-intro fi">Selected philosophical essays from the MSc at LSE, 2021–22 — on structural injustice, political freedom, feminist philosophy, and the epistemology of scientific method.</p>
+
+  <div class="w-feat fi">
+    <div class="wf">
+      <div class="wf-type">Dissertation · ~10,000 words</div>
+      <div class="wf-t">Contrasting Simulations and Experiments in Social Sciences</div>
+      <div class="wf-sub">Materiality Thesis and Epistemic Privilege Revisited</div>
+      <p class="wf-d">Argues that the Materiality Thesis — the dominant account of what separates computer simulations from experiments — is inarticulate in social science, where the objects of study are often non-physical. Proposes that what truly differentiates the two methods is how each achieves relevant similarity with its target system: simulations through good modelling, experiments through shared kindhood. From a pragmatic perspective, neither method holds epistemic privilege — each produces knowledge the other cannot.</p>
+      <div class="wf-meta">Supervised by Dr Kate Vredenburgh</div>
+      <a class="wf-link" href="papers/Dissertation_Simulations_and_Experiments.pdf" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>Read paper</a>
+    </div>
+    <div class="wf">
+      <div class="wf-type">Essay · ~2,000 words</div>
+      <div class="wf-t">Negative Freedom and Non-domination</div>
+      <div class="wf-sub">On Berlin, Einspahr, and the Republican Tradition</div>
+      <p class="wf-d">Defends republican non-domination as the preferable conception of freedom over Berlin's negative liberty. Non-domination extends the scope of what counts as unfreedom by attending to structural constraints — not only direct interference — and motivates the search for enhancement of freedom under non-ideal conditions, where the individualist tradition falls short.</p>
+      <a class="wf-link" href="papers/Negative_Freedom_and_Non-domination.pdf" target="_blank"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>Read paper</a>
+    </div>
+  </div>
+
+  <div class="wlist fi">
+
+    <div class="wrow" id="w0">
+      <button class="wbtn" onclick="wtog('w0')">
+        <span class="wyr">2022</span>
+        <span class="wnm">Individual Responsibility and Structural Injustice</span>
+        <span class="wic">+</span>
+      </button>
+      <div class="wpanel"><div class="winner">
+        <p>Critiques Zheng's Role Ideal Model on three grounds: the demandingness of role-based obligations, the epistemic difficulty of recognising structural injustice at the individual level, and the gap between individual action and collective solutions. Proposes combining attributability and accountability — using backward-looking causal analysis not to blame, but to build social knowledge that guides forward-looking responsibility.</p>
+      </div></div>
+    </div>
+
+    <div class="wrow" id="w1">
+      <button class="wbtn" onclick="wtog('w1')">
+        <span class="wyr">2022</span>
+        <span class="wnm">Feminism and the Respect for Women's Autonomous Choices</span>
+        <span class="wic">+</span>
+      </button>
+      <div class="wpanel"><div class="winner">
+        <p>Argues that respecting women's autonomy requires both deference to existing choices and active support for the conditions of genuine agency. Distinguishes between choices with significance to oneself and those with structural consequences for women as a group, proposing that offering information — rather than interference — is the mode of respect most consistent with feminist commitments.</p>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="languages" id="languages">
+  <div class="fi">
     <div class="lbl">Languages</div>
     <h2>Fluent across<br/>registers.</h2>
-    <div class="lang-l">
+    <div class="lang-l" style="margin-top:2.5rem">
       <div class="lang-r"><span class="ln">Mandarin Chinese</span><span class="ll">Native</span></div>
       <div class="lang-r"><span class="ln">English</span><span class="ll">Fluent · IELTS 7.5</span></div>
       <div class="lang-r"><span class="ln">Korean</span><span class="ll">TOPIK Level 3</span></div>
     </div>
+  </div>
+  <div class="fi" style="padding-top:.5rem">
     <div class="aside">
       <div class="lbl" style="margin-bottom:.7rem">Beyond work</div>
       <p>Guzheng — Grade 10 &ensp;·&ensp; Tennis, provincial competition level &ensp;·&ensp; Reading: Wittgenstein, analytical philosophy, political theory</p>
@@ -563,9 +656,13 @@
   function tog(id){
     const el=document.getElementById(id),p=el.querySelector('.ppanel'),o=el.classList.contains('open');
     document.querySelectorAll('.proj.open').forEach(x=>{x.classList.remove('open');x.querySelector('.ppanel').style.maxHeight=null;x.querySelector('.pic').textContent='+'});
-    if(!o){el.classList.add('open');p.style.maxHeight=p.scrollHeight+'px';el.querySelector('.pic').textContent='+'}
+    if(!o){el.classList.add('open');p.style.maxHeight=p.scrollHeight+'px';el.querySelector('.pic').textContent='+';}
   }
-  window.addEventListener('resize',()=>document.querySelectorAll('.proj.open').forEach(el=>{el.querySelector('.ppanel').style.maxHeight=el.querySelector('.ppanel').scrollHeight+'px'}));
+  function wtog(id){
+    const el=document.getElementById(id),p=el.querySelector('.wpanel'),o=el.classList.contains('open');
+    document.querySelectorAll('.wrow.open').forEach(x=>{x.classList.remove('open');x.querySelector('.wpanel').style.maxHeight=null;x.querySelector('.wic').textContent='+'});
+    if(!o){el.classList.add('open');p.style.maxHeight=p.scrollHeight+'px';el.querySelector('.wic').textContent='+';}
+  }
 </script>
 </body>
 </html>
